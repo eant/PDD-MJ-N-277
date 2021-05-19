@@ -31,7 +31,7 @@ else: ultimo_tweet = None
 
 tweets = []
 contador = 1
-for tweet in tweepy.Cursor(api.user_timeline, since_id = ultimo_tweet, screen_name = 'eanttech', tweet_mode = 'extended').items(500):
+for tweet in tweepy.Cursor(api.user_timeline, since_id = ultimo_tweet, screen_name = 'patobullrich', tweet_mode = 'extended').items(500):
     tweet_dic = tweet._json
     tweets.append(tweet_dic)
     print("tweet capturado", contador)

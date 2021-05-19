@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu May 13 20:10:13 2021
-
-@author: EANT
-"""
 from flask import Flask, json
+from pymongo import MongoClient
+
+USER = 'belloma'
+PASS = 'admin1234'
+SERVER = 'datacluster.sggre.mongodb.net'
+DB = 'bigdata'
+url= 'mongodb+srv://'+ USER + ':' + PASS +'@' + SERVER + '/' + DB +'?retryWrites=true&w=majority'
+client = MongoClient(url)
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def hello_flask():
@@ -37,4 +41,33 @@ def searchUsers(path):
     else:
         return "Upps... no puedo mostrar lo que estás pidiendo :P"
 
-app.run( port = 3000, host = "0.0.0.0" )
+
+#########################
+@app.route("/api/tweets")
+def getTweets():
+    
+    bigdata = client['bigdata']
+    tweets = bigdata['tweets']
+    
+    mis_tweets = tweets.find()
+    
+    res = []
+    for tweet in mis_tweets:
+        
+        el_tweet = {
+            'id': tweet['id_str'],
+            'user': tweet['in_reply_to_screen_name'],
+            'txt': tweet['full_text']
+        }
+        res.append(el_tweet)
+        
+    response = app.response_class(response = json.dumps(res), status = 200, mimetype = "application/json")
+    
+    return response
+  
+
+
+app.run( port = 3000 )
+
+
+
