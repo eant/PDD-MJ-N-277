@@ -42,16 +42,26 @@ def searchUsers(path):
         return "Upps... no puedo mostrar lo que estás pidiendo :P"
 
 
+@app.route("/api/tweets/<usuario>")
+def getTweetsSinLimite(usuario):
+    return "OUT OF SERVICE"
 #########################
-@app.route("/api/tweets")
-def getTweets():
+@app.route("/api/tweets/<usuario>/<limite>")
+def getTweets(usuario, limite):
     
     bigdata = client['bigdata']
     tweets = bigdata['tweets']
     
-    mis_tweets = tweets.find()
+    
+    if limite != None and limite.isnumeric():
+        limite = int(limite)
+    else:
+        return "Sín resultados para la búsqueda"
+        
+    mis_tweets = tweets.find({'in_reply_to_screen_name': usuario}).limit(limite)
     
     res = []
+    
     for tweet in mis_tweets:
         
         el_tweet = {
@@ -67,7 +77,7 @@ def getTweets():
   
 
 
-app.run( port = 3000 )
+app.run( port = 3000 , debug = True)
 
 
 
