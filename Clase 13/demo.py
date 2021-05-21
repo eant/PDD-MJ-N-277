@@ -1,11 +1,13 @@
-# -*- coding: utf-8 -*-
 from flask import Flask, json
 from pymongo import MongoClient
+import settings
+from os import environ
 
-USER = 'belloma'
-PASS = 'admin1234'
-SERVER = 'datacluster.sggre.mongodb.net'
-DB = 'bigdata'
+USER = environ['USER']
+PASS = environ['PASS']
+SERVER = environ['SERVER']
+DB = environ['DB']
+
 url= 'mongodb+srv://'+ USER + ':' + PASS +'@' + SERVER + '/' + DB +'?retryWrites=true&w=majority'
 client = MongoClient(url)
 
@@ -15,7 +17,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello_flask():
     
-    return "Hola desde la home de Flask :D"
+    return "<h1>Hola desde la home de <u>Flask</u> :D</h1>"
 
 ########################
 @app.route("/users")
