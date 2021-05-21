@@ -2,13 +2,25 @@ from flask import Flask, json
 from pymongo import MongoClient
 import settings
 from os import environ
+from urllib.parse import urlencode
 
 USER = environ['USER']
 PASS = environ['PASS']
 SERVER = environ['SERVER']
 DB = environ['DB']
 
-url= 'mongodb+srv://'+ USER + ':' + PASS +'@' + SERVER + '/' + DB +'?retryWrites=true&w=majority'
+params = {
+   'retryWrites' : 'true',
+   'w' : 'majority',
+   'ssl' : 'true',
+   'ssl_cert_reqs' : 'CERT_NONE'
+}
+
+url = 'mongodb+srv://'+ USER + ':' + PASS +'@' + SERVER + '/' + DB + '?' + urlencode(params)
+
+print("Esta es la connection string:")
+print( url )
+
 client = MongoClient(url)
 
 app = Flask(__name__)
