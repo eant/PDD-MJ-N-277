@@ -8,6 +8,7 @@ USER = environ['USER']
 PASS = environ['PASS']
 SERVER = environ['SERVER']
 DB = environ['DB']
+PORT  = environ['PORT']
 
 params = {
    'retryWrites' : 'true',
@@ -91,7 +92,7 @@ def getTweets(usuario, limite):
   
 
 
-app.run( port = 3000 , debug = True)
+app.run( port = PORT , debug = True)
 
 
 
