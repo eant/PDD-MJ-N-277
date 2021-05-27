@@ -1,7 +1,7 @@
 {
     "version" : 2,
     "builds" : [{
-        "src" : "./Clase-14/*.py",
+        "src" : "Clase-14/*.py",
         "use" : "@vercel/python"
     }],
     "routes" : [{
