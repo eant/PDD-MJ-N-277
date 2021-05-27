@@ -1,11 +1,11 @@
 {
     "version" : 2,
     "builds" : [{
-        "src" : "*.py",
+        "src" : "./Clase-14/*.py",
         "use" : "@vercel/python"
     }],
     "routes" : [{
         "src" : "/.*",
-        "dest" : "Clase-14/app.py"
+        "dest" : "./Clase-14/app.py"
     }]
 }
